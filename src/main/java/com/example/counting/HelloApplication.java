@@ -104,6 +104,7 @@ public class HelloApplication extends Application {
                 priceWithoutTax.setText((Integer.valueOf(data) * 5) / 6 + "");
                 Integer taxResult = Integer.valueOf(data) - withoutTax;
                 tax.setText(taxResult + "");
+
                 Integer resultOff = withoutTax + taxResult;
                 result.setText(resultOff.toString());
                 if(sum.equals(Double.valueOf(resultOff))){
