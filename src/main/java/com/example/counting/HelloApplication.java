@@ -4,12 +4,14 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,7 +32,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         root = new Pane();
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 700, 500);
 
         TextField input = new TextField();
         input.setPrefWidth(150);
@@ -94,6 +96,103 @@ public class HelloApplication extends Application {
         imageView.setLayoutX(150);
         imageView.setLayoutY(250);
 
+
+        Text measurements = new Text();
+        measurements.setLayoutX(50);
+        measurements.setLayoutY(250);
+        measurements.setText("Порахувати насосик:");
+        measurements.setStyle(format);
+
+        Text formulaStart = new Text();
+        formulaStart.setLayoutX(50);
+        formulaStart.setLayoutY(300);
+        formulaStart.setText("150 * 2 * ");
+        formulaStart.setStyle(textFormat);
+
+        Text formulaEnd = new Text();
+        formulaEnd.setLayoutX(200);
+        formulaEnd.setLayoutY(300);
+        formulaEnd.setText(" * 2,6");
+        formulaEnd.setStyle(textFormat);
+
+        TextField distance = new TextField();
+        distance.setPrefWidth(70);
+        distance.setPrefHeight(25);
+        distance.setLayoutX(130);
+        distance.setLayoutY(280);
+
+        Line divisionLine = new Line(50, 310, 250, 310);
+
+        Text divisionValue = new Text();
+        divisionValue.setLayoutX(130);
+        divisionValue.setLayoutY(330);
+        divisionValue.setText("10000");
+        divisionValue.setStyle(textFormat);
+
+        Text calculateResult = new Text();
+        calculateResult.setLayoutX(250);
+        calculateResult.setLayoutY(316);
+        calculateResult.setText(" = ");
+        calculateResult.setStyle(textFormat);
+
+        Button calculatePump = new Button();
+        calculatePump.setPrefWidth(100);
+        calculatePump.setPrefHeight(25);
+        calculatePump.setLayoutX(450);
+        calculatePump.setLayoutY(295);
+        calculatePump.setText("Роз. напір");
+
+        Text resultOfMeasurement = new Text();
+        resultOfMeasurement.setLayoutX(280);
+        resultOfMeasurement.setLayoutY(316);
+        resultOfMeasurement.setText("");
+        resultOfMeasurement.setStyle(format);
+
+        Button pressureInfo = new Button();
+        pressureInfo.setPrefWidth(25);
+        pressureInfo.setPrefHeight(25);
+        pressureInfo.setLayoutX(560);
+        pressureInfo.setLayoutY(295);
+        pressureInfo.setText("?");
+
+        TextField consumption = new TextField();
+        consumption.setPrefWidth(70);
+        consumption.setPrefHeight(25);
+        consumption.setLayoutX(50);
+        consumption.setLayoutY(380);
+
+        Text consumptionConst = new Text();
+        consumptionConst.setLayoutX(125);
+        consumptionConst.setLayoutY(400);
+        consumptionConst.setText(" * 4,3");
+        consumptionConst.setStyle(textFormat);
+
+        Text equalSign = new Text();
+        equalSign.setLayoutX(170);
+        equalSign.setLayoutY(400);
+        equalSign.setText(" = ");
+        equalSign.setStyle(textFormat);
+
+        Button calculateConsumption = new Button();
+        calculateConsumption.setPrefWidth(100);
+        calculateConsumption.setPrefHeight(25);
+        calculateConsumption.setLayoutX(450);
+        calculateConsumption.setLayoutY(380);
+        calculateConsumption.setText("Роз. витрату");
+
+        Text resultOfConsumption = new Text();
+        resultOfConsumption.setLayoutX(195);
+        resultOfConsumption.setLayoutY(400);
+        resultOfConsumption.setText("");
+        resultOfConsumption.setStyle(format);
+
+        Button consumptionInfo = new Button();
+        consumptionInfo.setPrefWidth(25);
+        consumptionInfo.setPrefHeight(25);
+        consumptionInfo.setLayoutX(560);
+        consumptionInfo.setLayoutY(380);
+        consumptionInfo.setText("?");
+
         calculate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -117,6 +216,15 @@ public class HelloApplication extends Application {
             }
         });
 
+        calculatePump.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                double dist = Double.parseDouble(distance.getText());
+                double result = (150 * 2 * dist * 2.6) / 10000;
+                resultOfMeasurement.setText(Double.toString(result) + " м");
+            }
+        });
+
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -125,9 +233,48 @@ public class HelloApplication extends Application {
             }
         });
 
+        pressureInfo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Інформація по розрахунку напору");
+                alert.setHeaderText("Для того, щоб розрахувати напір який необхідний подати для певної довжини труби ми використовуємо формулу (150 * 2L * 2.6)/10000 -\n" +
+                        "де L - це довжина труби від котла до крайньої точки в одну сторону у метрах.");
+
+                // Showing the alert
+                alert.showAndWait();
+            }
+        });
+
+        calculateConsumption.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                double square = Double.parseDouble(consumption.getText());
+                double consResult = square * 4.3;
+                double consResultInLiters = consResult / 1000;
+                resultOfConsumption.setText(consResult + " л (" + consResultInLiters + " м3\\год)");
+            }
+        });
+
+        consumptionInfo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Інформація по розрахунку вмтрати");
+                alert.setHeaderText("Для того, щоб розрахувати витрату, необхідно внести дані по наступній формулі:\n" +
+                        "S * 4,3\n" +
+                        "де S є площа на яку необіхно подату теплоносій у м2");
+
+                // Showing the alert
+                alert.showAndWait();
+            }
+        });
         stage.setTitle("Counting!");
         root.getChildren()
-                .addAll(input, calculate, priceWithoutTaxLabel, priceWithoutTax, taxLabel, tax, result, resultLabel, inputSum, advertisment, imageView);
+                .addAll(input, calculate, priceWithoutTaxLabel, priceWithoutTax, taxLabel, tax, result, resultLabel, inputSum,
+                        measurements, formulaStart, formulaEnd, distance, divisionLine, divisionValue,
+                        calculateResult, calculatePump, resultOfMeasurement, pressureInfo, consumption, consumptionConst,
+                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo);
         stage.setScene(scene);
         stage.show();
     }
