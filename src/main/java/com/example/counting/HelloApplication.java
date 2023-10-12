@@ -14,10 +14,24 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.awt.Desktop;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.poi.xwpf.usermodel.*;
+
+import org.apache.poi.xwpf.usermodel.*;
 
 public class HelloApplication extends Application {
+
+    private static final String TEMPLATE_PATH = "/Doc1.docx";
     private static final String format = "-fx-font-weight: bold; -fx-font-size: 20";
     private static final String redFormat = "-fx-font-weight: bold; -fx-font-size: 20; -fx-fill: red;";
     private static final String greenFormat = "-fx-font-weight: bold; -fx-font-size: 20; -fx-fill: green;";
@@ -270,12 +284,67 @@ public class HelloApplication extends Application {
             }
         });
         stage.setTitle("Counting!");
+
+        TextField textField = new TextField();
+        Button saveButton = new Button("Save to Word");
+
+        saveButton.setOnAction(event -> {
+            String userInput = textField.getText();
+            saveToWordWithPlaceholder(userInput, "222", "tax");
+        });
+
         root.getChildren()
                 .addAll(input, calculate, priceWithoutTaxLabel, priceWithoutTax, taxLabel, tax, result, resultLabel, inputSum,
                         measurements, formulaStart, formulaEnd, distance, divisionLine, divisionValue,
                         calculateResult, calculatePump, resultOfMeasurement, pressureInfo, consumption, consumptionConst,
-                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo);
+                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo, textField, saveButton);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void saveToWordWithPlaceholder(String nameInput, String ageInput, String tax) {
+        try (InputStream templateInputStream = getClass().getClassLoader().getResourceAsStream("Doc1.docx");
+             XWPFDocument document = new XWPFDocument(templateInputStream);
+             FileOutputStream out = new FileOutputStream("output_with_table_multiple_replacements.docx")) {
+
+            Map<String, String> replacements = new HashMap<>();
+            replacements.put("{{name}}", nameInput);
+            replacements.put("{{age}}", ageInput);
+
+            replacePlaceholdersInTable(document, replacements);
+
+            document.write(out);
+            System.out.println("Word document created successfully with multiple replacements.");
+
+            // Open the saved Word document
+            Desktop.getDesktop().open(new File("output_with_table_multiple_replacements.docx"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void replacePlaceholdersInTable(XWPFDocument document, Map<String, String> replacements) {
+        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+            String placeholder = entry.getKey();
+            String replacement = entry.getValue();
+
+            Iterator<XWPFTable> tableIterator = document.getTablesIterator();
+            while (tableIterator.hasNext()) {
+                XWPFTable table = tableIterator.next();
+                for (XWPFTableRow row : table.getRows()) {
+                    for (XWPFTableCell cell : row.getTableCells()) {
+                        for (XWPFParagraph paragraph : cell.getParagraphs()) {
+                            for (XWPFRun run : paragraph.getRuns()) {
+                                String text = run.getText(0);
+                                if (text != null && text.contains(placeholder)) {
+                                    text = text.replace(placeholder, replacement);
+                                    run.setText(text, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
