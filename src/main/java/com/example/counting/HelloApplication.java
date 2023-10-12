@@ -100,11 +100,13 @@ public class HelloApplication extends Application {
                 String data = input.getText();
                 input.clear();
                 Double sum = Double.valueOf(data);
+                Integer withoutTax = (Integer.valueOf(data) * 5) / 6;
                 priceWithoutTax.setText((Integer.valueOf(data) * 5) / 6 + "");
-                tax.setText(Integer.valueOf(data) * 0.2 + "");
-                Double resultOff = (Integer.valueOf(data) * 5) / 6 + Integer.valueOf(data) * 0.2;
+                Integer taxResult = Integer.valueOf(data) - withoutTax;
+                tax.setText(taxResult + "");
+                Integer resultOff = withoutTax + taxResult;
                 result.setText(resultOff.toString());
-                if(sum == resultOff){
+                if(sum.equals(Double.valueOf(resultOff))){
                     inputSum.setText(sum + "");
                     inputSum.setStyle(greenFormat);
                 }else{
