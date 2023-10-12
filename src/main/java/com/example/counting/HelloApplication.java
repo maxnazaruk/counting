@@ -310,7 +310,7 @@ public class HelloApplication extends Application {
             Map<String, String> replacements = new HashMap<>();
             replacements.put("{{name}}", nameInput);
             replacements.put("{{age}}", ageInput);
-
+            //comment
             replacePlaceholdersInTable(document, replacements);
 
             document.write(out);
