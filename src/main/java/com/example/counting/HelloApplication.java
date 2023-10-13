@@ -47,7 +47,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         root = new Pane();
-        Scene scene = new Scene(root, 700, 500);
+        Scene scene = new Scene(root, 1000, 800);
 
         TextField input = new TextField();
         input.setPrefWidth(250);
@@ -61,22 +61,44 @@ public class HelloApplication extends Application {
         focus.setLayoutY(42.5);
         focus.setText("Покупець:");
 
-        TextField inputGood1 = new TextField();
-        inputGood1.setPrefWidth(350);
-        inputGood1.setPrefHeight(25);
-        inputGood1.setLayoutX(100);
-        inputGood1.setLayoutY(85);
-        inputGood1.setPromptText("Найменування товару");
+        TextField invoice = new TextField();
+        invoice.setPrefWidth(250);
+        invoice.setPrefHeight(25);
+        invoice.setLayoutX(500);
+        invoice.setLayoutY(25);
+        invoice.setPromptText("Рахунок №");
+
+        Text invoiceTitle = new Text();
+        invoiceTitle.setLayoutX(375);
+        invoiceTitle.setLayoutY(42.5);
+        invoiceTitle.setText("Рахунок на оплату №:");
 
         Text goodTitle = new Text();
         goodTitle.setLayoutX(185);
         goodTitle.setLayoutY(80);
         goodTitle.setText("Товари (роботи, послуги)");
 
+        Text goodCount1 = new Text();
+        goodCount1.setLayoutX(485);
+        goodCount1.setLayoutY(80);
+        goodCount1.setText("Кіл-сть:");
+
+        Text goodPrice1 = new Text();
+        goodPrice1.setLayoutX(550);
+        goodPrice1.setLayoutY(80);
+        goodPrice1.setText("Вартість 1шт. з ПДВ");
+        //----------------------------------------------------------------------------------------
         Text good1 = new Text();
         good1.setLayoutX(75);
         good1.setLayoutY(102.5);
         good1.setText("№1:");
+
+        TextField inputGood1 = new TextField();
+        inputGood1.setPrefWidth(350);
+        inputGood1.setPrefHeight(25);
+        inputGood1.setLayoutX(100);
+        inputGood1.setLayoutY(85);
+        inputGood1.setPromptText("Найменування товару");
 
         TextField inputGoodCount1 = new TextField();
         inputGoodCount1.setPrefWidth(55);
@@ -85,11 +107,6 @@ public class HelloApplication extends Application {
         inputGoodCount1.setLayoutY(85);
         inputGoodCount1.setPromptText("Кіл-сть");
 
-        Text goodCount1 = new Text();
-        goodCount1.setLayoutX(485);
-        goodCount1.setLayoutY(80);
-        goodCount1.setText("Кіл-сть:");
-
         TextField inputGoodPrice1 = new TextField();
         inputGoodPrice1.setPrefWidth(110);
         inputGoodPrice1.setPrefHeight(25);
@@ -97,27 +114,78 @@ public class HelloApplication extends Application {
         inputGoodPrice1.setLayoutY(85);
         inputGoodPrice1.setPromptText("Вартість з ПДВ");
 
-        Text goodPrice1 = new Text();
-        goodPrice1.setLayoutX(550);
-        goodPrice1.setLayoutY(80);
-        goodPrice1.setText("Вартість 1шт. з ПДВ");
+        //----------------------------------------------------------------------------------------
+        Text good2 = new Text();
+        good2.setLayoutX(75);
+        good2.setLayoutY(137.5);
+        good2.setText("№2:");
+
+        TextField inputGood2 = new TextField();
+        inputGood2.setPrefWidth(350);
+        inputGood2.setPrefHeight(25);
+        inputGood2.setLayoutX(100);
+        inputGood2.setLayoutY(120);
+        inputGood2.setPromptText("Найменування товару");
+
+        TextField inputGoodCount2 = new TextField();
+        inputGoodCount2.setPrefWidth(55);
+        inputGoodCount2.setPrefHeight(25);
+        inputGoodCount2.setLayoutX(480);
+        inputGoodCount2.setLayoutY(120);
+        inputGoodCount2.setPromptText("Кіл-сть");
+
+        TextField inputGoodPrice2 = new TextField();
+        inputGoodPrice2.setPrefWidth(110);
+        inputGoodPrice2.setPrefHeight(25);
+        inputGoodPrice2.setLayoutX(550);
+        inputGoodPrice2.setLayoutY(120);
+        inputGoodPrice2.setPromptText("Вартість з ПДВ");
+        //----------------------------------------------------------------------------------------
+
+        //----------------------------------------------------------------------------------------
+        Text good3 = new Text();
+        good3.setLayoutX(75);
+        good3.setLayoutY(172.5);
+        good3.setText("№3:");
+
+        TextField inputGood3 = new TextField();
+        inputGood3.setPrefWidth(350);
+        inputGood3.setPrefHeight(25);
+        inputGood3.setLayoutX(100);
+        inputGood3.setLayoutY(155);
+        inputGood3.setPromptText("Найменування товару");
+
+        TextField inputGoodCount3 = new TextField();
+        inputGoodCount3.setPrefWidth(55);
+        inputGoodCount3.setPrefHeight(25);
+        inputGoodCount3.setLayoutX(480);
+        inputGoodCount3.setLayoutY(155);
+        inputGoodCount3.setPromptText("Кіл-сть");
+
+        TextField inputGoodPrice3 = new TextField();
+        inputGoodPrice3.setPrefWidth(110);
+        inputGoodPrice3.setPrefHeight(25);
+        inputGoodPrice3.setLayoutX(550);
+        inputGoodPrice3.setLayoutY(155);
+        inputGoodPrice3.setPromptText("Вартість з ПДВ");
+        //----------------------------------------------------------------------------------------
 
 
         Text measurements = new Text();
         measurements.setLayoutX(50);
-        measurements.setLayoutY(250);
+        measurements.setLayoutY(550);
         measurements.setText("Порахувати насосик:");
         measurements.setStyle(format);
 
         Text formulaStart = new Text();
         formulaStart.setLayoutX(50);
-        formulaStart.setLayoutY(300);
+        formulaStart.setLayoutY(600);
         formulaStart.setText("150 * 2 * ");
         formulaStart.setStyle(textFormat);
 
         Text formulaEnd = new Text();
         formulaEnd.setLayoutX(200);
-        formulaEnd.setLayoutY(300);
+        formulaEnd.setLayoutY(600);
         formulaEnd.setText(" * 2,6");
         formulaEnd.setStyle(textFormat);
 
@@ -125,19 +193,19 @@ public class HelloApplication extends Application {
         distance.setPrefWidth(70);
         distance.setPrefHeight(25);
         distance.setLayoutX(130);
-        distance.setLayoutY(280);
+        distance.setLayoutY(580);
 
-        Line divisionLine = new Line(50, 310, 250, 310);
+        Line divisionLine = new Line(50, 610, 250, 610);
 
         Text divisionValue = new Text();
         divisionValue.setLayoutX(130);
-        divisionValue.setLayoutY(330);
+        divisionValue.setLayoutY(630);
         divisionValue.setText("10000");
         divisionValue.setStyle(textFormat);
 
         Text calculateResult = new Text();
         calculateResult.setLayoutX(250);
-        calculateResult.setLayoutY(316);
+        calculateResult.setLayoutY(616);
         calculateResult.setText(" = ");
         calculateResult.setStyle(textFormat);
 
@@ -145,12 +213,12 @@ public class HelloApplication extends Application {
         calculatePump.setPrefWidth(100);
         calculatePump.setPrefHeight(25);
         calculatePump.setLayoutX(450);
-        calculatePump.setLayoutY(295);
+        calculatePump.setLayoutY(595);
         calculatePump.setText("Роз. напір");
 
         Text resultOfMeasurement = new Text();
         resultOfMeasurement.setLayoutX(280);
-        resultOfMeasurement.setLayoutY(316);
+        resultOfMeasurement.setLayoutY(616);
         resultOfMeasurement.setText("");
         resultOfMeasurement.setStyle(format);
 
@@ -158,24 +226,24 @@ public class HelloApplication extends Application {
         pressureInfo.setPrefWidth(25);
         pressureInfo.setPrefHeight(25);
         pressureInfo.setLayoutX(560);
-        pressureInfo.setLayoutY(295);
+        pressureInfo.setLayoutY(595);
         pressureInfo.setText("?");
 
         TextField consumption = new TextField();
         consumption.setPrefWidth(70);
         consumption.setPrefHeight(25);
         consumption.setLayoutX(50);
-        consumption.setLayoutY(380);
+        consumption.setLayoutY(680);
 
         Text consumptionConst = new Text();
         consumptionConst.setLayoutX(125);
-        consumptionConst.setLayoutY(400);
+        consumptionConst.setLayoutY(700);
         consumptionConst.setText(" * 4,3");
         consumptionConst.setStyle(textFormat);
 
         Text equalSign = new Text();
         equalSign.setLayoutX(170);
-        equalSign.setLayoutY(400);
+        equalSign.setLayoutY(700);
         equalSign.setText(" = ");
         equalSign.setStyle(textFormat);
 
@@ -183,12 +251,12 @@ public class HelloApplication extends Application {
         calculateConsumption.setPrefWidth(100);
         calculateConsumption.setPrefHeight(25);
         calculateConsumption.setLayoutX(450);
-        calculateConsumption.setLayoutY(380);
+        calculateConsumption.setLayoutY(680);
         calculateConsumption.setText("Роз. витрату");
 
         Text resultOfConsumption = new Text();
         resultOfConsumption.setLayoutX(195);
-        resultOfConsumption.setLayoutY(400);
+        resultOfConsumption.setLayoutY(700);
         resultOfConsumption.setText("");
         resultOfConsumption.setStyle(format);
 
@@ -196,7 +264,7 @@ public class HelloApplication extends Application {
         consumptionInfo.setPrefWidth(25);
         consumptionInfo.setPrefHeight(25);
         consumptionInfo.setLayoutX(560);
-        consumptionInfo.setLayoutY(380);
+        consumptionInfo.setLayoutY(680);
         consumptionInfo.setText("?");
 
 /*
@@ -261,22 +329,29 @@ public class HelloApplication extends Application {
 
 
         Button saveButton = new Button("Сформувати");
-        saveButton.setLayoutX(580);
-        saveButton.setLayoutY(180);
+        saveButton.setLayoutX(700);
+        saveButton.setLayoutY(300);
 
         saveButton.setOnAction(event -> {
             String buyer = input.getText();
             String goodName1 = inputGood1.getText();
             String goodCountField1 = inputGoodCount1.getText();
+            String invoiceText = invoice.getText();
 
             double goodPriceWithTax = Double.parseDouble(inputGoodPrice1.getText());
             double singlePriceWithoutTax = goodPriceWithTax * 5 / 6;
-
-            String singlePriceWithout = new DecimalFormat("##.##").format(singlePriceWithoutTax);
-
             double fullPriceWithoutTax = Double.parseDouble(goodCountField1) * singlePriceWithoutTax;
             double tax = goodPriceWithTax * Double.parseDouble(goodCountField1) - fullPriceWithoutTax;
-            saveToWordWithPlaceholder(buyer, goodName1, goodCountField1, singlePriceWithout, fullPriceWithoutTax + "", tax + "");
+
+            String singlePriceWithout = new DecimalFormat("##.##").format(singlePriceWithoutTax);
+            String fullPriceWithoutTaxing = new DecimalFormat("##.##").format(fullPriceWithoutTax);
+            String stringTax = new DecimalFormat("##.##").format(tax);
+            String fullPriceBottom = new DecimalFormat("##.##").format(fullPriceWithoutTax);
+            double totalPrice = tax + fullPriceWithoutTax;
+            String total = new DecimalFormat("##.##").format(totalPrice);
+
+
+            saveToWordWithPlaceholder(buyer, invoiceText, goodName1, goodCountField1, singlePriceWithout, fullPriceWithoutTaxing, stringTax, fullPriceBottom, total);
         });
 
         root.getChildren()
@@ -284,23 +359,30 @@ public class HelloApplication extends Application {
                         goodTitle,
                         measurements, formulaStart, formulaEnd, distance, divisionLine, divisionValue,
                         calculateResult, calculatePump, resultOfMeasurement, pressureInfo, consumption, consumptionConst,
-                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo, saveButton);
+                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo, saveButton,
+                        invoice, invoiceTitle,
+
+                        good2, inputGood2, inputGoodCount2, inputGoodPrice2,
+                        good3, inputGood3, inputGoodCount3, inputGoodPrice3);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void saveToWordWithPlaceholder(String buyer, String goodName, String count, String singlePrice, String fullPrice, String tax) {
+    private void saveToWordWithPlaceholder(String buyer, String invoiceNumber, String goodName, String count, String singlePrice, String fullPrice, String tax, String fullPriceBottom, String total) {
         try (InputStream templateInputStream = getClass().getClassLoader().getResourceAsStream("target.docx");
              XWPFDocument document = new XWPFDocument(templateInputStream);
              FileOutputStream out = new FileOutputStream("output.docx")) {
 
             Map<String, String> replacements = new HashMap<>();
             replacements.put("{{buyer}}", buyer);
+            replacements.put("{{invoice}}", invoiceNumber);
             replacements.put("{{goodName}}", goodName);
             replacements.put("{{count}}", count);
             replacements.put("{{singlePrice}}", singlePrice);
             replacements.put("{{fullPrice}}", fullPrice);
             replacements.put("{{tax}}", tax);
+            replacements.put("{{fullPriceBottom}}", fullPriceBottom);
+            replacements.put("{{total}}", total);
             //comment
             replacePlaceholdersInTable(document, replacements);
 
