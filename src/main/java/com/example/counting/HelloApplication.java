@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -49,66 +50,57 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(root, 700, 500);
 
         TextField input = new TextField();
-        input.setPrefWidth(150);
+        input.setPrefWidth(250);
         input.setPrefHeight(25);
-        input.setLayoutX(50);
+        input.setLayoutX(100);
         input.setLayoutY(25);
+        input.setPromptText("Покупець");
 
-        Button calculate = new Button();
-        calculate.setPrefWidth(120);
-        calculate.setPrefHeight(25);
-        calculate.setLayoutX(250);
-        calculate.setLayoutY(25);
-        calculate.setText("Розрахувати");
+        Text focus = new Text();
+        focus.setLayoutX(35);
+        focus.setLayoutY(42.5);
+        focus.setText("Покупець:");
 
-        Text priceWithoutTaxLabel = new Text();
-        priceWithoutTaxLabel.setLayoutX(50);
-        priceWithoutTaxLabel.setLayoutY(100);
-        priceWithoutTaxLabel.setText("Сумма без ПДВ: ");
-        priceWithoutTaxLabel.setStyle(textFormat);
+        TextField inputGood1 = new TextField();
+        inputGood1.setPrefWidth(350);
+        inputGood1.setPrefHeight(25);
+        inputGood1.setLayoutX(100);
+        inputGood1.setLayoutY(85);
+        inputGood1.setPromptText("Найменування товару");
 
-        Text priceWithoutTax = new Text();
-        priceWithoutTax.setLayoutX(210);
-        priceWithoutTax.setLayoutY(100);
-        priceWithoutTax.setStyle(format);
+        Text goodTitle = new Text();
+        goodTitle.setLayoutX(185);
+        goodTitle.setLayoutY(80);
+        goodTitle.setText("Товари (роботи, послуги)");
 
-        Text taxLabel = new Text();
-        taxLabel.setLayoutX(50);
-        taxLabel.setLayoutY(150);
-        taxLabel.setText("ПДВ: ");
-        taxLabel.setStyle(textFormat);
+        Text good1 = new Text();
+        good1.setLayoutX(75);
+        good1.setLayoutY(102.5);
+        good1.setText("№1:");
 
-        Text tax = new Text();
-        tax.setLayoutX(110);
-        tax.setLayoutY(150);
-        tax.setStyle(format);
+        TextField inputGoodCount1 = new TextField();
+        inputGoodCount1.setPrefWidth(55);
+        inputGoodCount1.setPrefHeight(25);
+        inputGoodCount1.setLayoutX(480);
+        inputGoodCount1.setLayoutY(85);
+        inputGoodCount1.setPromptText("Кіл-сть");
 
-        Text resultLabel = new Text();
-        resultLabel.setLayoutX(50);
-        resultLabel.setLayoutY(200);
-        resultLabel.setText("Контрольна сумма: ");
-        resultLabel.setStyle(textFormat);
+        Text goodCount1 = new Text();
+        goodCount1.setLayoutX(485);
+        goodCount1.setLayoutY(80);
+        goodCount1.setText("Кіл-сть:");
 
-        Text result = new Text();
-        result.setLayoutX(230);
-        result.setLayoutY(200);
-        result.setStyle(format);
+        TextField inputGoodPrice1 = new TextField();
+        inputGoodPrice1.setPrefWidth(110);
+        inputGoodPrice1.setPrefHeight(25);
+        inputGoodPrice1.setLayoutX(550);
+        inputGoodPrice1.setLayoutY(85);
+        inputGoodPrice1.setPromptText("Вартість з ПДВ");
 
-        Text inputSum = new Text();
-        inputSum.setLayoutX(350);
-        inputSum.setLayoutY(200);
-
-        Text advertisment = new Text();
-        advertisment.setLayoutX(100);
-        advertisment.setLayoutY(480);
-        advertisment.setText("Купуйте насоси WILO у Івано-Франківську!!!");
-        advertisment.setStyle(adFormat);
-
-        Image logo = new Image(getClass().getResourceAsStream("/com/example/counting/wilo.jpg"));
-        ImageView imageView = new ImageView(logo);
-        imageView.setPreserveRatio(true);
-        imageView.setLayoutX(150);
-        imageView.setLayoutY(250);
+        Text goodPrice1 = new Text();
+        goodPrice1.setLayoutX(550);
+        goodPrice1.setLayoutY(80);
+        goodPrice1.setText("Вартість 1шт. з ПДВ");
 
 
         Text measurements = new Text();
@@ -207,28 +199,18 @@ public class HelloApplication extends Application {
         consumptionInfo.setLayoutY(380);
         consumptionInfo.setText("?");
 
-        calculate.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+/*
                 String data = input.getText();
                 input.clear();
                 Double sum = Double.valueOf(data);
                 Integer withoutTax = (Integer.valueOf(data) * 5) / 6;
-                priceWithoutTax.setText((Integer.valueOf(data) * 5) / 6 + "");
+
                 Integer taxResult = Integer.valueOf(data) - withoutTax;
-                tax.setText(taxResult + "");
+
 
                 Integer resultOff = withoutTax + taxResult;
-                result.setText(resultOff.toString());
-                if(sum.equals(Double.valueOf(resultOff))){
-                    inputSum.setText(sum + "");
-                    inputSum.setStyle(greenFormat);
-                }else{
-                    inputSum.setText(sum + "");
-                    inputSum.setStyle(redFormat);
-                }
-            }
-        });
+
+  */
 
         calculatePump.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -236,14 +218,6 @@ public class HelloApplication extends Application {
                 double dist = Double.parseDouble(distance.getText());
                 double result = (150 * 2 * dist * 2.6) / 10000;
                 resultOfMeasurement.setText(Double.toString(result) + " м");
-            }
-        });
-
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                getHostServices().showDocument("http://mnk-if.com");
-                mouseEvent.consume();
             }
         });
 
@@ -285,32 +259,48 @@ public class HelloApplication extends Application {
         });
         stage.setTitle("Counting!");
 
-        TextField textField = new TextField();
-        Button saveButton = new Button("Save to Word");
-        saveButton.setLayoutX(250);
+
+        Button saveButton = new Button("Сформувати");
+        saveButton.setLayoutX(580);
+        saveButton.setLayoutY(180);
 
         saveButton.setOnAction(event -> {
-            String userInput = textField.getText();
-            saveToWordWithPlaceholder(userInput, "222", "tax");
+            String buyer = input.getText();
+            String goodName1 = inputGood1.getText();
+            String goodCountField1 = inputGoodCount1.getText();
+
+            double goodPriceWithTax = Double.parseDouble(inputGoodPrice1.getText());
+            double singlePriceWithoutTax = goodPriceWithTax * 5 / 6;
+
+            String singlePriceWithout = new DecimalFormat("##.##").format(singlePriceWithoutTax);
+
+            double fullPriceWithoutTax = Double.parseDouble(goodCountField1) * singlePriceWithoutTax;
+            double tax = goodPriceWithTax * Double.parseDouble(goodCountField1) - fullPriceWithoutTax;
+            saveToWordWithPlaceholder(buyer, goodName1, goodCountField1, singlePriceWithout, fullPriceWithoutTax + "", tax + "");
         });
 
         root.getChildren()
-                .addAll(input, calculate, priceWithoutTaxLabel, priceWithoutTax, taxLabel, tax, result, resultLabel, inputSum,
+                .addAll( focus, input, inputGood1, good1, inputGoodCount1, goodCount1, inputGoodPrice1, goodPrice1,
+                        goodTitle,
                         measurements, formulaStart, formulaEnd, distance, divisionLine, divisionValue,
                         calculateResult, calculatePump, resultOfMeasurement, pressureInfo, consumption, consumptionConst,
-                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo, textField, saveButton);
+                        equalSign, calculateConsumption, resultOfConsumption, consumptionInfo, saveButton);
         stage.setScene(scene);
         stage.show();
     }
 
-    private void saveToWordWithPlaceholder(String nameInput, String ageInput, String tax) {
+    private void saveToWordWithPlaceholder(String buyer, String goodName, String count, String singlePrice, String fullPrice, String tax) {
         try (InputStream templateInputStream = getClass().getClassLoader().getResourceAsStream("target.docx");
              XWPFDocument document = new XWPFDocument(templateInputStream);
              FileOutputStream out = new FileOutputStream("output.docx")) {
 
             Map<String, String> replacements = new HashMap<>();
-            replacements.put("{{name}}", nameInput);
-            replacements.put("{{age}}", ageInput);
+            replacements.put("{{buyer}}", buyer);
+            replacements.put("{{goodName}}", goodName);
+            replacements.put("{{count}}", count);
+            replacements.put("{{singlePrice}}", singlePrice);
+            replacements.put("{{fullPrice}}", fullPrice);
+            replacements.put("{{tax}}", tax);
             //comment
             replacePlaceholdersInTable(document, replacements);
 
