@@ -287,6 +287,7 @@ public class HelloApplication extends Application {
 
         TextField textField = new TextField();
         Button saveButton = new Button("Save to Word");
+        saveButton.setLayoutX(250);
 
         saveButton.setOnAction(event -> {
             String userInput = textField.getText();
@@ -303,9 +304,9 @@ public class HelloApplication extends Application {
     }
 
     private void saveToWordWithPlaceholder(String nameInput, String ageInput, String tax) {
-        try (InputStream templateInputStream = getClass().getClassLoader().getResourceAsStream("Doc1.docx");
+        try (InputStream templateInputStream = getClass().getClassLoader().getResourceAsStream("target.docx");
              XWPFDocument document = new XWPFDocument(templateInputStream);
-             FileOutputStream out = new FileOutputStream("output_with_table_multiple_replacements.docx")) {
+             FileOutputStream out = new FileOutputStream("output.docx")) {
 
             Map<String, String> replacements = new HashMap<>();
             replacements.put("{{name}}", nameInput);
@@ -317,7 +318,7 @@ public class HelloApplication extends Application {
             System.out.println("Word document created successfully with multiple replacements.");
 
             // Open the saved Word document
-            Desktop.getDesktop().open(new File("output_with_table_multiple_replacements.docx"));
+            Desktop.getDesktop().open(new File("output.docx"));
         } catch (IOException e) {
             e.printStackTrace();
         }
