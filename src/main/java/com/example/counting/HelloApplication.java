@@ -70,6 +70,8 @@ public class HelloApplication extends Application {
     private static String fullPriceWithoutTaxing6;
     private static double fullPriceWithTax6;
 
+    private static double totalPriceWithoutTax = 0;
+
     private Pane root;
 
     public static void main(String[] args) {
@@ -578,11 +580,13 @@ public class HelloApplication extends Application {
             //--------------------------------------------------------------------------------------
             //double totalPrice = tax + fullPriceWithoutTax;
             List<String> fullList = Arrays.asList(fullPriceWithoutTaxing, fullPriceWithoutTaxing2, fullPriceWithoutTaxing3, fullPriceWithoutTaxing4, fullPriceWithoutTaxing5, fullPriceWithoutTaxing6);
-            double totalPriceWithoutTax = 0;
             for (String s : fullList) {
                 try{
-                    totalPriceWithoutTax += Double.parseDouble(s);
-                }catch (NumberFormatException ex){
+                    if(s.equals("")){
+                        continue;
+                    }
+                    totalPriceWithoutTax += Double.parseDouble(s.replaceAll(",","\\."));
+                }catch (Exception ex){
                     continue;
                 }
             }
@@ -601,12 +605,13 @@ public class HelloApplication extends Application {
                 }
             }
             String fullPriceBottom = String.format("%.2f", totalPriceWithoutTax);
-            String stringTax = decimalFormat.format(totalPriceWithTax - totalPriceWithoutTax);
+            String stringTax = String.format("%.2f",totalPriceWithTax - totalPriceWithoutTax);
            String total = String.format("%.2f", totalPriceWithTax);
            String totalDuplicate = String.format("%.2f", totalPriceWithTax);
+           Double tax1 = totalPriceWithTax - totalPriceWithoutTax;
 
-            long beforeDecimal = (long) totalPriceWithTax;  // Cast to long to remove decimal part
-            long afterDecimal = Math.round((totalPriceWithTax - beforeDecimal) * 100);
+            long beforeDecimal = (long)(totalPriceWithTax - totalPriceWithoutTax);  // Cast to long to remove decimal part
+            long afterDecimal = Math.round((totalPriceWithTax - totalPriceWithoutTax - beforeDecimal) * 100);
 
             String fullTaxDuplication = Long.toString(beforeDecimal);
             String coins = Long.toString(afterDecimal);
